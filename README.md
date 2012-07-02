@@ -18,14 +18,20 @@ Installation
 ### How to install
 
 - Download the Debian package and copy it to the device
-- Install the package:  $ dpkg -i <package>.deb
-- Respring:  $ killall -HUP SpringBoard
+- Install the package:  
+
+    dpkg -i <package>.deb
+
+- Respring:  
+
+    killall -HUP SpringBoard
+
 - On the device, go into Settings->SSL Kill Switch and enable it
 - Start / Restart the App you want to test
 
 ### How to uninstall
 
-- $ dpkg -r com.nabla.sslkillswitch
+    dpkg -r com.nabla.sslkillswitch
 
 
 TODO
