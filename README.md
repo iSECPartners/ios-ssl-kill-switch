@@ -5,7 +5,13 @@ iOS SSL Kill Switch
 MobileSubstrate extension to disable certificate validation at run-time in order 
 to facilitate black-box testing of iOS Apps. 
 
+
 https://github.com/nabla-c0d3/ios-ssl-kill-switch
+
+How it works
+------------
+
+Once installed, iOS SSL Kill Switch patches NSURLConnection to override and disable the system's default certificate validation as well as any kind of custom certificate validation (such as certificate pinning).
 
 
 Installation
