@@ -21,7 +21,7 @@ Using Cydia make sure the following packages are installed:
 
 ### How to install
 
-Download the Debian package and copy it to the device and install it:  
+Copy the Debian package to the device and install it:  
 
     dpkg -i <package>.deb
 
