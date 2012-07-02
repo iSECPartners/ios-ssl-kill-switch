@@ -26,7 +26,8 @@ Respring the device:
 
     killall -HUP SpringBoard
 
-There should be a new meny in the device's Settings where you can enable the extension.
+There should be a new menu in the device's Settings where you can enable the extension.
+
 Finally, start / restart the App you want to test.
 
 ### How to uninstall
