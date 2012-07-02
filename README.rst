@@ -10,21 +10,21 @@ Installation
 
 - Tested on iOS 4.3 or 5.1
 
-Dependencies
-------------
+### Dependencies
+
 - MobileSubstrate
 - PreferenceLoader
 
-How to install
---------------
+### How to install
+
 - Download the Debian package and copy it to the device
 - Install the package:  $ dpkg -i <package>.deb
 - Respring:  $ killall -HUP SpringBoard
 - On the device, go into Settings->SSL Kill Switch and enable it
 - Start / Restart the App you want to test
 
-How to uninstall
-----------------
+### How to uninstall
+
 - $ dpkg -r com.nabla.sslkillswitch
 
 
