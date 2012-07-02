@@ -8,26 +8,26 @@ to facilitate black-box testing of iOS Apps.
 Installation
 ============
 
-- Tested on iOS 4.3 or 5.1
+iOS SSL Kill Switch was tested on iOS 4.3 or 5.1.
 
 ### Dependencies
-
+Using Cydia make sure the following packages are installed:
+- dpkg
 - MobileSubstrate
 - PreferenceLoader
 
 ### How to install
 
-- Download the Debian package and copy it to the device
-- Install the package:  
+Download the Debian package and copy it to the device and install it:  
 
     dpkg -i <package>.deb
 
-- Respring:  
+Respring the device:
 
     killall -HUP SpringBoard
 
-- On the device, go into Settings->SSL Kill Switch and enable it
-- Start / Restart the App you want to test
+There should be a new meny in the device's Settings where you can enable the extension.
+Finally, start / restart the App you want to test.
 
 ### How to uninstall
 
