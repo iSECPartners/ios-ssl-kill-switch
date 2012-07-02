@@ -1,12 +1,15 @@
 iOS SSL Kill Switch
-https://github.com/nabla-c0d3/ios-ssl-kill-switch
+===================
+
 
 MobileSubstrate extension to disable certificate validation at run-time in order 
 to facilitate black-box testing of iOS Apps. 
 
+https://github.com/nabla-c0d3/ios-ssl-kill-switch
+
 
 Installation
-============
+------------
 
 iOS SSL Kill Switch was tested on iOS 4.3 or 5.1.
 
@@ -36,14 +39,15 @@ Finally, start / restart the App you want to test.
 
 
 TODO
-====
+----
 
 - Disable certificate validation for NSStream and CFStream
 - Force NSStream and CFStream to use the device's proxy settings
 
 
 License
-=======
+-------
 
 MIT - See LICENSE.txt
+
 Copyright 2012 Alban Diquet
