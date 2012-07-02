@@ -20,6 +20,7 @@ Installation
 iOS SSL Kill Switch was tested on iOS 4.3 or 5.1.
 
 ### Dependencies
+
 Using Cydia make sure the following packages are installed:
 - dpkg
 - MobileSubstrate
