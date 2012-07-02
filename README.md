@@ -5,8 +5,8 @@ iOS SSL Kill Switch
 MobileSubstrate extension to disable certificate validation at run-time in order 
 to facilitate black-box testing of iOS Apps. 
 
-
 https://github.com/nabla-c0d3/ios-ssl-kill-switch
+
 
 How it works
 ------------
