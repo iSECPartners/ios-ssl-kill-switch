@@ -31,7 +31,7 @@ Using Cydia make sure the following packages are installed:
 
 ### How to install
 
-Copy the Debian package to the device and install it:  
+Download and copy the Debian package to the device; install it:  
 
     dpkg -i <package>.deb
 
@@ -46,7 +46,7 @@ Finally, start / restart the App you want to test.
 
 ### How to uninstall
 
-    dpkg -r com.nabla.sslkillswitch
+    dpkg -r com.isecpartners.nabla.sslkillswitch
 
 
 TODO
@@ -61,6 +61,8 @@ License
 
 MIT - See LICENSE.txt
 
-Copyright 2012 Alban Diquet
 
-https://github.com/nabla-c0d3
+Author
+------
+
+Alban Diquet - https://github.com/nabla-c0d3

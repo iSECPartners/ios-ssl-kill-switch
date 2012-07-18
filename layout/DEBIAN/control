@@ -1,0 +1,9 @@
+Package: com.isecpartners.nabla.sslkillswitch
+Name: iOS SSL Kill Switch
+Depends: mobilesubstrate, preferenceloader
+Version: 0.2
+Architecture: iphoneos-arm
+Description: Disable SSL certificate validation to facilitate Blackbox testing of iOS Apps.
+Maintainer: Alban Diquet <alban@isecpartners.com>
+Author: Alban Diquet <alban@isecpartners.com>
+Section: Tweaks
