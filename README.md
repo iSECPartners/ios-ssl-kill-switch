@@ -12,7 +12,7 @@ Once installed on a jailbroken device, iOS SSL Kill Switch patches
 NSURLConnection to override and disable the system's default
 certificate validation as well as any kind of custom certificate
 validation (such as certificate pinning). It was succesfully tested
-against the Twitter and Card.io iOS apps; both of them implement
+against Twitter, Card.io and Square; all of them implement
 certificate pinning.
 
 
