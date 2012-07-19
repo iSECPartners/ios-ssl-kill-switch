@@ -5,8 +5,8 @@ MobileSubstrate extension to disable certificate validation within
 NSURLConnection in order to facilitate black-box testing of iOS Apps.
 
 
-How it works
-------------
+Description
+-----------
 
 Once installed on a jailbroken device, iOS SSL Kill Switch patches
 NSURLConnection to override and disable the system's default
@@ -53,7 +53,7 @@ Building
 --------
 
 Most users should just download and install the Debian package.
-The build, requires the Theos suite to be installed; 
+The build requires the Theos suite to be installed; 
 see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started
 Then the package can be built using:
 
