@@ -49,11 +49,15 @@ Finally, start / restart the App you want to test.
     dpkg -r com.isecpartners.nabla.sslkillswitch
 
 
-TODO
-----
+Building
+--------
 
-- Disable certificate validation for NSStream and CFStream
-- Force NSStream and CFStream to use the device's proxy settings
+Most users should just download and install the Debian package.
+The build, requires the Theos suite to be installed; 
+see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started
+Then the package can be built using:
+
+    make package
 
 
 License
