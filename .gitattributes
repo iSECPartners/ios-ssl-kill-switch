@@ -1,0 +1,13 @@
+# These files are text and should be normalized (convert crlf => lf)
+*.h       text
+*.c       text
+*.txt     text
+*.md      text
+*.xm      text
+*.plist   text
+control   text
+Makefile  text
+
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
