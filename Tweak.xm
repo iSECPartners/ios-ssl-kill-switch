@@ -4,6 +4,17 @@
 
 %hook NSURLConnection
 
++ (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
+
+    id hookedResult;
+    HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
+    hookedResult = %orig(request, delegateProxy);   
+    [delegateProxy release]; // NSURLConnection retains the delegate
+   
+    return hookedResult;
+}
+
+
 - (id)initWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
     
     id hookedResult;
