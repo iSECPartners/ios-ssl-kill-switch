@@ -55,6 +55,10 @@ Building
 Most users should just download and install the Debian package.
 The build requires the Theos suite to be installed; 
 see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started .
+First you have to create a symlink to your theos installation:
+
+    ln -s /opt/theos/ theos
+
 Then the package can be built using:
 
     make package
