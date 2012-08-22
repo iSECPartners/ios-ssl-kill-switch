@@ -7,7 +7,7 @@
 - (id)initWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
     
     id hookedResult;
-   	HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginal: delegate];
+   	HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
     hookedResult = %orig(request, delegateProxy);	
     [delegateProxy release]; // NSURLConnection retains the delegate
    
@@ -18,7 +18,7 @@
 - (id)initWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate startImmediately:(BOOL)startImmediately {
     
     id hookedResult;
-    HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginal: delegate];
+    HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
     hookedResult = %orig(request, delegateProxy, startImmediately);		
     [delegateProxy release]; // NSURLConnection retains the delegate
     
