@@ -3,7 +3,7 @@ Name: iOS SSL Kill Switch
 Depends: mobilesubstrate, preferenceloader
 Version: 0.2
 Architecture: iphoneos-arm
-Description: Disable SSL certificate validation to facilitate Blackbox testing of iOS Apps.
+Description: Blackbox tool to disable SSL certificate validation - including certificate pinning - within iOS Apps.
 Maintainer: Alban Diquet <alban@isecpartners.com>
 Author: Alban Diquet <alban@isecpartners.com>
 Section: Tweaks
