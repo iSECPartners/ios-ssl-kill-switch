@@ -30,17 +30,6 @@
             <string>killSwitchNSURLConnection</string>
             <key>label</key>
             <string>NSURLConnection</string>
-            <key>confirmation</key>
-            <dict>
-               <key>cancelTitle</key>
-               <string>lol cancel</string>
-<key>okTitle</key>
-<string>lol ok</string>
-<key>prompt</key>
-<string>Are you sure ? All SSL traffic from all Apps will be vulnerable.</string>
-<key>title</key>
-<string>lol title</string>
-      </dict>
          </dict>
       </array>
       <key>title</key>
