@@ -3,3 +3,4 @@
 theos
 *.deb
 obj
+_/*
