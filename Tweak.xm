@@ -1,5 +1,5 @@
 #import <HookedNSURLConnectionDelegate.h>
-#define PREFERENCEFILE "/User/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist"
+#define PREFERENCEFILE "/private/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist"
 
 
 %hook NSURLConnection
