@@ -6,7 +6,7 @@
 
 + (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
 
-    id hookedResult;
+    NSURLConnection *hookedResult;
     HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
     hookedResult = %orig(request, delegateProxy);   
     [delegateProxy release]; // NSURLConnection retains the delegate
