@@ -25,6 +25,7 @@
             NSLog(@"SSL Kill Switch - Preference not set.");
             return FALSE;
         }
+        [plist release];
     }
 }
 
