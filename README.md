@@ -1,9 +1,8 @@
 iOS SSL Kill Switch
 ===================
 
-MobileSubstrate extension to disable certificate validation within
-NSURLConnection in order to facilitate black-box testing of iOS Apps.
-
+Blackbox tool to disable SSL certificate validation - including certificate
+pinning - within iOS Apps
 
 Description
 -----------
@@ -19,12 +18,13 @@ certificate pinning.
 Installation
 ------------
 
-iOS SSL Kill Switch was tested on iOS 4.3 or 5.1. A jailbroken device
-is required.
+Most users should download the pre-compiled Debian package available at:
+https://www.dropbox.com/sh/5bbfvf3ux713gn2/JV7Ul6Goyj
 
 ### Dependencies
 
-Using Cydia make sure the following packages are installed:
+iOS SSL Kill Switch was tested on iOS 4.3 or 5.1. A jailbroken device
+is required. Using Cydia make sure the following packages are installed:
 - dpkg
 - MobileSubstrate
 - PreferenceLoader
@@ -49,17 +49,17 @@ Finally, start / restart the App you want to test.
     dpkg -r com.isecpartners.nabla.sslkillswitch
 
 
-Building
---------
+Build
+-----
 
 Most users should just download and install the Debian package.
 The build requires the Theos suite to be installed; 
 see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started .
-First you have to create a symlink to your theos installation:
+You first have to create a symlink to your theos installation:
 
     ln -s /opt/theos/ theos
 
-Then the package can be built using:
+Then, the package can be built using:
 
     make package
 
