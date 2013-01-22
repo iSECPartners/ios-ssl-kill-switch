@@ -19,7 +19,7 @@ Installation
 ------------
 
 Most users should download the pre-compiled Debian package available at:
-https://www.dropbox.com/sh/5bbfvf3ux713gn2/JV7Ul6Goyj
+http://nabla-c0d3.blogspot.com/2013/01/ios-ssl-kill-switch-v03.html
 
 ### Dependencies
 
