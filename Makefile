@@ -1,4 +1,8 @@
-TARGET = iphone:5.1
+TARGET = iphone:6.1
+
+export ARCHS=armv7
+export TARGET=iphone:latest:4.3
+
 include theos/makefiles/common.mk
 
 TWEAK_NAME = SSLKillSwitch
