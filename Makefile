@@ -1,4 +1,4 @@
-TARGET = iphone:5.1
+
 include theos/makefiles/common.mk
 
 TWEAK_NAME = SSLKillSwitch
