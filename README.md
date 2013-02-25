@@ -20,7 +20,7 @@ Installation
 
 Users should first download the right pre-compiled Debian package:
 - For iOS 5.1: https://www.dropbox.com/s/uedmp211i0yv2b0/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_5.1.deb?dl=1
-- For iOS 6.1: https://www.dropbox.com/s/0ywz2xqxtzsu9ua/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_6.1.deb?dl=1
+- For iOS 6.1: https://www.dropbox.com/s/elcl483wrsvgmq2/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_6.1.deb?dl=1
 
 ### Dependencies
 
