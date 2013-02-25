@@ -13,6 +13,7 @@ certificate validation as well as any kind of custom certificate
 validation (such as certificate pinning). It was succesfully tested
 against Twitter, Card.io and Square; all of them implement
 certificate pinning.
+iOS SSL Kill Switch was initially released at Black Hat Vegas 2012.
 
 
 Installation
