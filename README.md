@@ -18,13 +18,14 @@ certificate pinning.
 Installation
 ------------
 
-Most users should download the pre-compiled Debian package available at:
-http://nabla-c0d3.blogspot.com/2013/01/ios-ssl-kill-switch-v03.html
+Users should first download the right pre-compiled Debian package:
+- For iOS 5.1: https://www.dropbox.com/s/uedmp211i0yv2b0/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_5.1.deb?dl=1
+- For iOS 6.1: https://www.dropbox.com/s/0ywz2xqxtzsu9ua/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_6.1.deb?dl=1
 
 ### Dependencies
 
-iOS SSL Kill Switch was tested on iOS 4.3 or 5.1. A jailbroken device
-is required. Using Cydia make sure the following packages are installed:
+iOS SSL Kill Switch will only run on a jailbroken device. Using Cydia, make
+sure the following packages are installed:
 - dpkg
 - MobileSubstrate
 - PreferenceLoader
@@ -42,7 +43,7 @@ Respring the device:
 There should be a new menu in the device's Settings where you can
 enable the extension.
 
-Finally, start / restart the App you want to test.
+Finally, kill and restart the App you want to test.
 
 ### How to uninstall
 
