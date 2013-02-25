@@ -41,7 +41,7 @@
 
 %ctor {
 	// Should we hook NSURLConnection ?
-    NSString* preferenceFilePath = @PREFERENCEFILE; // Dirty ?
+    NSString* preferenceFilePath = @PREFERENCEFILE;
     BOOL shouldHook = [HookedNSURLConnectionDelegate shouldHookNSURLConnectionFromPreference:preferenceFilePath];
     [preferenceFilePath release];
 
