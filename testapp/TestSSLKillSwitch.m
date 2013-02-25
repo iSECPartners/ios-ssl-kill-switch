@@ -9,7 +9,7 @@
 
 
 + (void)testNSURLConnectionClassMethods {
-    SSLPinnedNSURLConnectionDelegate* deleg = [[SSLPinnedNSURLConnectionDelegate alloc] init];
+    SSLPinnedNSURLConnectionDelegate* deleg = [[SSLPinnedNSURLConnectionDelegate1 alloc] init];
     [NSURLConnection connectionWithRequest: [NSURLRequest requestWithURL:
 		  [NSURL URLWithString:@"https://www.isecpartners.com/?method=connectionWithRequest"]]
 	   delegate:deleg];
@@ -18,20 +18,23 @@
 
 
 + (void)testNSURLConnectionInstanceMethods {
-	SSLPinnedNSURLConnectionDelegate* deleg = [[SSLPinnedNSURLConnectionDelegate alloc] init];
+	SSLPinnedNSURLConnectionDelegate* deleg1 = [[SSLPinnedNSURLConnectionDelegate1 alloc] init];
 	NSURLConnection *conn = [[NSURLConnection alloc] 
         initWithRequest:[NSURLRequest requestWithURL:
 			[NSURL URLWithString:@"https://www.isecpartners.com/?method=initWithRequest:delegate:"]]
-        delegate:deleg];
+        delegate:deleg1];
 	[conn start];
+    [deleg1 release]; // Give ownership to the connection
 
+
+    SSLPinnedNSURLConnectionDelegate* deleg2 = [[SSLPinnedNSURLConnectionDelegate2 alloc] init];
 	NSURLConnection *conn2 = [[NSURLConnection alloc]
 	    initWithRequest:[NSURLRequest requestWithURL:
 			[NSURL URLWithString:@"https://www.isecpartners.com/?method=initWithRequest:delegate:startImmediately:"]]
-        delegate:deleg
+        delegate:deleg2
         startImmediately:NO];
     [conn2 start];
-    [deleg release]; // Give ownership to the connection
+    [deleg2 release]; // Give ownership to the connection
 }
 
 
@@ -46,11 +49,11 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    NSLog(@"SSLPinnedNSURLConnectionDelegate - failed: %@", error);
+    NSLog(@"%@ - failed: %@", NSStringFromClass([self class]), error);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSLog(@"SSLPinnedNSURLConnectionDelegate - received %d bytes", [data length]);
+    NSLog(@"%@ - received %d bytes", NSStringFromClass([self class]), [data length]);
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
@@ -58,14 +61,15 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"SSLPinnedNSURLConnectionDelegate - success: %@", [[response URL] host]);
+    NSLog(@"%@ - success: %@", NSStringFromClass([self class]), [[response URL] host]);
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
+    NSLog(@"%@ - redirect: %@", NSStringFromClass([self class]), [[request URL] host]);
     return request;
 }
 
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+- (void)handleAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge  {
     // Pin the wrong CA certificate => connection should only work if SSL Kill Switch is enabled
     
     if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
@@ -98,6 +102,27 @@
             [[challenge sender] cancelAuthenticationChallenge: challenge];
         }
     }
+}
+@end
+
+
+
+@implementation SSLPinnedNSURLConnectionDelegate1 {
+}
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [self handleAuthenticationChallenge:challenge];
+}
+@end
+
+
+@implementation SSLPinnedNSURLConnectionDelegate2 {
+}
+- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
+    return YES;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    [self handleAuthenticationChallenge:challenge];   
 }
 @end
 
