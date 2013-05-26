@@ -3,41 +3,90 @@
 @implementation TestSSLKillSwitch
 
 + (void)runAllTests {
-    [self testNSURLConnectionInstanceMethods];
-	[self testNSURLConnectionClassMethods];
+    [self testNSURLConnectionSSLPinning];
+    [self testSecTrustEvaluateSSLPinning];
 }
 
 
-+ (void)testNSURLConnectionClassMethods {
-    SSLPinnedNSURLConnectionDelegate* deleg = [[SSLPinnedNSURLConnectionDelegate1 alloc] init];
-    [NSURLConnection connectionWithRequest: [NSURLRequest requestWithURL:
-		  [NSURL URLWithString:@"https://www.isecpartners.com/?method=connectionWithRequest"]]
-	   delegate:deleg];
-    [deleg release]; // Give ownership to the connection
-}
-
-
-+ (void)testNSURLConnectionInstanceMethods {
-	SSLPinnedNSURLConnectionDelegate* deleg1 = [[SSLPinnedNSURLConnectionDelegate1 alloc] init];
-	NSURLConnection *conn = [[NSURLConnection alloc] 
-        initWithRequest:[NSURLRequest requestWithURL:
-			[NSURL URLWithString:@"https://www.isecpartners.com/?method=initWithRequest:delegate:"]]
-        delegate:deleg1];
-	[conn start];
++ (void)testNSURLConnectionSSLPinning {
+    // Test the Kill Switch on NSURLConnection
+    // The connections will only work if SSL Kill Switch is enabled
+    SSLPinnedNSURLConnectionDelegate* deleg1 = [[SSLPinnedNSURLConnectionDelegate1 alloc] init];
+    NSURLConnection *conn = [[NSURLConnection alloc]
+                             initWithRequest:[NSURLRequest requestWithURL:
+                                              [NSURL URLWithString:@"https://www.isecpartners.com/"]]
+                             delegate:deleg1];
+    [conn start];
     [deleg1 release]; // Give ownership to the connection
-
-
+    
+    
     SSLPinnedNSURLConnectionDelegate* deleg2 = [[SSLPinnedNSURLConnectionDelegate2 alloc] init];
-	NSURLConnection *conn2 = [[NSURLConnection alloc]
-	    initWithRequest:[NSURLRequest requestWithURL:
-			[NSURL URLWithString:@"https://www.isecpartners.com/?method=initWithRequest:delegate:startImmediately:"]]
-        delegate:deleg2
-        startImmediately:NO];
+    NSURLConnection *conn2 = [[NSURLConnection alloc]
+                              initWithRequest:[NSURLRequest requestWithURL:
+                                               [NSURL URLWithString:@"https://www.isecpartners.com/"]]
+                              delegate:deleg2
+                              startImmediately:NO];
     [conn2 start];
     [deleg2 release]; // Give ownership to the connection
 }
 
 
++ (void)testSecTrustEvaluateSSLPinning {
+    // Test the Kill Switch on SecTrustEvaluate()
+    // The connections will only work if SSL Kill Switch is enabled
+    
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    
+    StreamDelegate *inStreamDelegate = [[StreamDelegate alloc] init];
+    StreamDelegate *outStreamDelegate = [[StreamDelegate alloc] init];
+    
+    NSURL *website = [NSURL URLWithString:@"https://www.isecpartners.com"];
+    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)[website host], 443, &readStream, &writeStream);
+    
+    NSInputStream *inStream = (NSInputStream *)readStream;
+    NSOutputStream *outStream = (NSOutputStream *) writeStream;
+    
+    [outStream setProperty:NSStreamSocketSecurityLevelNegotiatedSSL forKey:NSStreamSocketSecurityLevelKey];
+    [inStream setProperty:NSStreamSocketSecurityLevelNegotiatedSSL forKey:NSStreamSocketSecurityLevelKey];
+    // Use an invalid hostname for cert validation to make the connection fail
+    NSDictionary *sslSettings = [NSDictionary dictionaryWithObjectsAndKeys: @"www.bad.com", (id)kCFStreamSSLPeerName, nil];
+    [inStream setProperty: sslSettings forKey: (NSString *)kCFStreamPropertySSLSettings];
+    [outStream setProperty: sslSettings forKey: (NSString *)kCFStreamPropertySSLSettings];
+    
+    CFReadStreamSetProperty(readStream, kCFStreamPropertySSLSettings, sslSettings);
+    
+    [inStream setDelegate:inStreamDelegate];
+    [outStream setDelegate:outStreamDelegate];
+    
+    [inStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [outStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    [inStream open];
+    [outStream open];
+    [outStream write: "GET / HTTP/1.1\r\n" maxLength:20];
+}
+
+
+@end
+
+
+
+@implementation StreamDelegate
+
+- (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
+    
+    NSLog(@"%@ - Received: %x", NSStringFromClass([self class]), streamEvent);
+    switch(streamEvent) {
+        case NSStreamEventHasBytesAvailable:
+            NSLog(@"%@ - Connection Succeeded");
+            break;
+        case NSStreamEventErrorOccurred:
+            NSLog(@"%@ - Error: %@", NSStringFromClass([self class]), [[theStream streamError] localizedDescription]);
+            [theStream release];
+            break;
+    }
+}
 
 @end
 
@@ -75,7 +124,7 @@
     if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         SecTrustRef serverTrust = [[challenge protectionSpace] serverTrust];
         SecTrustResultType trustResult;
-
+        
         // Load the anchor certificate
         NSString *certPath = [[NSString alloc] initWithFormat:@"%@/VeriSignClass3PublicPrimaryCertificationAuthority-G5.der", [[NSBundle mainBundle] bundlePath]];
         NSData *anchorCertData = [[NSData alloc] initWithContentsOfFile:certPath];
@@ -91,7 +140,7 @@
         SecTrustSetAnchorCertificates(serverTrust, (CFArrayRef)(anchorArray));
         SecTrustEvaluate(serverTrust, &trustResult);
         CFRelease(anchorCertificate);
-
+        
         if (trustResult == kSecTrustResultUnspecified) {
             // Continue connecting
             [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]
@@ -125,4 +174,3 @@
     [self handleAuthenticationChallenge:challenge];   
 }
 @end
-

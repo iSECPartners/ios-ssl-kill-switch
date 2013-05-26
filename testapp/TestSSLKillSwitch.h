@@ -2,9 +2,15 @@
 }
 
 + (void)runAllTests;
-+ (void)testNSURLConnectionClassMethods;
-+ (void)testNSURLConnectionInstanceMethods;
++ (void)testNSURLConnectionSSLPinning;
++ (void)testSecTrustEvaluateSSLPinning;
 
+@end
+
+
+
+@interface StreamDelegate: NSObject <NSStreamDelegate>
+- (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent;
 @end
 
 
@@ -34,3 +40,4 @@
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 @end
+
