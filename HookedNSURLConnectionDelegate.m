@@ -6,31 +6,6 @@
 @synthesize originalDelegate;
 
 
-+(BOOL)shouldHookNSURLConnectionFromPreference:(NSString*) preferenceFilePath {
-    // Returns whether certificate validation methods in NSURLConnection 
-    // should be hooked, depending on the given preference file 
-    
-    NSMutableDictionary* plist = [[NSMutableDictionary alloc] initWithContentsOfFile:preferenceFilePath];
-    
-    if (!plist) { // Preference file not found, don't hook
-        NSLog(@"SSL Kill Switch - Preference file not found.");
-        return FALSE;
-    }
-    else {
-        id shouldHook = [plist objectForKey:@"killSwitchNSURLConnection"];
-        if (shouldHook) {
-            [plist release];
-            return [shouldHook boolValue];
-        } 
-        else { // Property was not set, don't hook
-            NSLog(@"SSL Kill Switch - Preference not set.");
-            [plist release];
-            return FALSE;
-        }
-    }
-}
-
-
 -(HookedNSURLConnectionDelegate*) initWithOriginalDelegate: (id) origDeleg{
     self = [super init];
 

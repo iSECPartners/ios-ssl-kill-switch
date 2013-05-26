@@ -9,9 +9,6 @@
 @property (retain) id originalDelegate; // Need retain or the delegate gets freed before we're done using it.
 
 
-// Utility function
-+(BOOL)shouldHookNSURLConnectionFromPreference:(NSString*) preferenceFilePath;
-
 
 // Contructor
 -(HookedNSURLConnectionDelegate*) initWithOriginalDelegate: (id) origDeleg;

@@ -31,6 +31,18 @@
             <key>label</key>
             <string>NSURLConnection</string>
          </dict>
+         <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>default</key>
+            <false/>
+            <key>defaults</key>
+            <string>com.isecpartners.nabla.SSLKillSwitchSettings</string>
+            <key>key</key>
+            <string>killSwitchSecTrustEvaluate</string>
+            <key>label</key>
+            <string>SecTrustEvaluate</string>
+         </dict>
       </array>
       <key>title</key>
       <string>SSL Kill Switch</string>
