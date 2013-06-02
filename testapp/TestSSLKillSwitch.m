@@ -64,7 +64,6 @@
     
     [inStream open];
     [outStream open];
-    [outStream write: "GET / HTTP/1.1\r\n" maxLength:20];
 }
 
 
@@ -84,6 +83,8 @@
         case NSStreamEventErrorOccurred:
             NSLog(@"%@ - Error: %@", NSStringFromClass([self class]), [[theStream streamError] localizedDescription]);
             [theStream release];
+            break;
+        default:
             break;
     }
 }
