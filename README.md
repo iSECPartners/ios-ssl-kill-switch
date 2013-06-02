@@ -8,20 +8,18 @@ Description
 -----------
 
 Once installed on a jailbroken device, iOS SSL Kill Switch patches
-NSURLConnection to override and disable the system's default
-certificate validation as well as any kind of custom certificate
-validation (such as certificate pinning). It was succesfully tested
-against Twitter, Card.io and Square; all of them implement
-certificate pinning.
-iOS SSL Kill Switch was initially released at Black Hat Vegas 2012.
+NSURLConnection and SecTrustEvaluate() to override and disable the system's
+default certificate validation as well as any kind of custom certificate
+validation (such as certificate pinning). It was succesfully tested against
+Twitter, Card.io and Square; all of them implement certificate pinning. iOS
+SSL Kill Switch was initially released at Black Hat Vegas 2012.
 
 
 Installation
 ------------
 
-Users should first download the right pre-compiled Debian package:
-- For iOS 5.1: https://www.dropbox.com/s/uedmp211i0yv2b0/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_5.1.deb?dl=1
-- For iOS 6.1: https://www.dropbox.com/s/elcl483wrsvgmq2/com.isecpartners.nabla.sslkillswitch_v0.3-iOS_6.1.deb?dl=1
+Users should first download the right pre-compiled Debian package (tested on iOS 6.1):
+https://www.dropbox.com/s/95gm7h89owumywk/com.isecpartners.nabla.sslkillswitch_v0.4-iOS_6.1.deb?dl=1
 
 ### Dependencies
 
