@@ -15,9 +15,11 @@
       <array>
          <dict>
             <key>cell</key>
-            <string>PSTitleValueCell</string>
+            <string>PSGroupCell</string>
             <key>label</key>
             <string>Disable Certificate Validation</string>
+            <key>footerText</key>
+            <string>Each setting activates a different strategy for disabling certificate validation. Enable both settings for maximum efficency.</string>
          </dict>
          <dict>
             <key>cell</key>
@@ -41,8 +43,9 @@
             <key>key</key>
             <string>killSwitchSecTrustEvaluate</string>
             <key>label</key>
-            <string>SecTrustEvaluate</string>
+            <string>SecTrustEvaluate()</string>
          </dict>
+
       </array>
       <key>title</key>
       <string>SSL Kill Switch</string>
