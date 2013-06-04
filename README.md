@@ -2,7 +2,8 @@ iOS SSL Kill Switch
 ===================
 
 Blackbox tool to disable SSL certificate validation - including certificate
-pinning - within iOS Apps
+pinning - within iOS Apps.
+
 
 Description
 -----------
@@ -18,8 +19,8 @@ SSL Kill Switch was initially released at Black Hat Vegas 2012.
 Installation
 ------------
 
-Users should first download the right pre-compiled Debian package (tested on iOS 6.1):
-https://www.dropbox.com/s/95gm7h89owumywk/com.isecpartners.nabla.sslkillswitch_v0.4-iOS_6.1.deb?dl=1
+Users should first download the pre-compiled Debian package (tested on iOS 6.1):
+http://nabla-c0d3.blogspot.com/2013/06/ios-ssl-kill-switch-v04-released.html
 
 ### Dependencies
 
