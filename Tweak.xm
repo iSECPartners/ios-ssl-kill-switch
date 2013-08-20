@@ -1,61 +1,7 @@
-#import <Security/Security.h>
-#import "HookedNSURLConnectionDelegate.h"
-
+#import <Security/SecureTransport.h>
+#import "substrate.h"
 
 #define PREFERENCEFILE "/private/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist"
-
-
-%group NSURLConnectionHook
-
-%hook NSURLConnection
-
-+ (NSURLConnection *)connectionWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
-
-    NSURLConnection *hookedResult;
-    HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
-    hookedResult = %orig(request, delegateProxy);   
-    [delegateProxy release]; // NSURLConnection retains the delegate
-   
-    return hookedResult;
-}
-
-
-- (id)initWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate {
-    
-    id hookedResult;
-   	HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
-    hookedResult = %orig(request, delegateProxy);	
-    [delegateProxy release]; // NSURLConnection retains the delegate
-   
-    return hookedResult;
-}
-
-
-- (id)initWithRequest:(NSURLRequest *)request delegate:(id < NSURLConnectionDelegate >)delegate startImmediately:(BOOL)startImmediately {
-    
-    id hookedResult;
-    HookedNSURLConnectionDelegate* delegateProxy = [[HookedNSURLConnectionDelegate alloc] initWithOriginalDelegate: delegate];
-    hookedResult = %orig(request, delegateProxy, startImmediately);		
-    [delegateProxy release]; // NSURLConnection retains the delegate
-    
-    return hookedResult;    
-}
-
-%end
-%end
-
-
-
-// Hook SecTrustEvaluate
-static OSStatus (*original_SecTrustEvaluate)(SecTrustRef trust, SecTrustResultType *result);
-
-static OSStatus replaced_SecTrustEvaluate(SecTrustRef trust, SecTrustResultType *result) {
-    OSStatus res = original_SecTrustEvaluate(trust, result);
-    // Actually, this certificate chain is trusted
-    *result = kSecTrustResultUnspecified;
-    return res;
-}
-
 
 
 // Utility function to read the Tweak's preferences
@@ -82,26 +28,76 @@ static BOOL shouldHookFromPreference(NSString *preferenceSetting) {
 }
 
 
+// Hook SSLSetSessionOption()
+static OSStatus (*original_SSLSetSessionOption)(
+    SSLContextRef context, 
+    SSLSessionOption option, 
+    Boolean value);
+
+static OSStatus replaced_SSLSetSessionOption(
+    SSLContextRef context, 
+    SSLSessionOption option, 
+    Boolean value) {
+
+    // Remove the ability to modify the value of the kSSLSessionOptionBreakOnServerAuth option
+    if (option == kSSLSessionOptionBreakOnServerAuth)
+        return noErr;
+    else
+        return original_SSLSetSessionOption(context, option, value);
+}
+
+
+// Hook SSLCreateContext()
+static SSLContextRef (*original_SSLCreateContext) (
+   CFAllocatorRef alloc,
+   SSLProtocolSide protocolSide,
+   SSLConnectionType connectionType
+);
+
+static SSLContextRef replaced_SSLCreateContext (
+   CFAllocatorRef alloc,
+   SSLProtocolSide protocolSide,
+   SSLConnectionType connectionType
+) {
+
+    SSLContextRef sslContext = original_SSLCreateContext(alloc, protocolSide, connectionType);
+    
+    // Set the kSSLSessionOptionBreakOnServerAuth option in order to disable cert validation
+    original_SSLSetSessionOption(sslContext, kSSLSessionOptionBreakOnServerAuth, true);
+    return sslContext;
+}
+
+
+// Hook SSLHandshake()
+static OSStatus (*original_SSLHandshake)(SSLContextRef context);
+
+static OSStatus replaced_SSLHandshake(SSLContextRef context) {
+
+    OSStatus result = original_SSLHandshake(context);
+
+    // Hijack the flow when breaking on server authentication
+    if (result == errSSLServerAuthCompleted) {
+        // Do not check the cert and call SSLHandshake() again
+        return original_SSLHandshake(context);
+    }
+    else
+        return result;
+}
+
+
 %ctor {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
-    // Should we hook NSURLConnection ?
-	if (shouldHookFromPreference(@"killSwitchNSURLConnection")) {
-    	NSLog(@"SSL Kill Switch - NSURLConnection Hook Enabled.");
-        %init(NSURLConnectionHook);
+    // Should we enable the hook ?
+	if (shouldHookFromPreference(@"killSwitchSSLHandshake")) {
+        NSLog(@"SSL Kill Switch - Hook Enabled.");
+        MSHookFunction((void *) SSLHandshake,(void *)  replaced_SSLHandshake, (void **) &original_SSLHandshake);
+        MSHookFunction((void *) SSLSetSessionOption,(void *)  replaced_SSLSetSessionOption, (void **) &original_SSLSetSessionOption);
+        MSHookFunction((void *) SSLCreateContext,(void *)  replaced_SSLCreateContext, (void **) &original_SSLCreateContext);
     }
     else {
-    	NSLog(@"SSL Kill Switch - NSURLConnection Hook Disabled.");
+    	NSLog(@"SSL Kill Switch - Hook Disabled.");
         }
-
-    // Should we hook SecTrustEvaluate ?
-    if (shouldHookFromPreference(@"killSwitchSecTrustEvaluate")) {
-        NSLog(@"SSL Kill Switch - SecTrustEvaluate Hook Enabled.");
-        MSHookFunction((void *) SecTrustEvaluate,(void *)  replaced_SecTrustEvaluate, (void **) &original_SecTrustEvaluate);
-    }
-    else {
-        NSLog(@"SSL Kill Switch - SecTrustEvaluate Hook Disabled.");
-    } 
 
     [pool drain];
 }

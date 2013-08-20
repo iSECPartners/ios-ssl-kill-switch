@@ -17,9 +17,9 @@
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>label</key>
-            <string>Disable Certificate Validation</string>
+            <string></string>
             <key>footerText</key>
-            <string>Each setting activates a different strategy for disabling certificate validation. Enable both settings for maximum efficency.</string>
+            <string>SSL Kill Switch v0.5</string>
          </dict>
          <dict>
             <key>cell</key>
@@ -29,23 +29,10 @@
             <key>defaults</key>
             <string>com.isecpartners.nabla.SSLKillSwitchSettings</string>
             <key>key</key>
-            <string>killSwitchNSURLConnection</string>
+            <string>killSwitchSSLHandshake</string>
             <key>label</key>
-            <string>NSURLConnection</string>
+            <string>Disable Certificate Validation</string>
          </dict>
-         <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>default</key>
-            <false/>
-            <key>defaults</key>
-            <string>com.isecpartners.nabla.SSLKillSwitchSettings</string>
-            <key>key</key>
-            <string>killSwitchSecTrustEvaluate</string>
-            <key>label</key>
-            <string>SecTrustEvaluate()</string>
-         </dict>
-
       </array>
       <key>title</key>
       <string>SSL Kill Switch</string>
