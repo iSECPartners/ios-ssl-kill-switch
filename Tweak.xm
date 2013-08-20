@@ -62,7 +62,7 @@ static SSLContextRef replaced_SSLCreateContext (
 
     SSLContextRef sslContext = original_SSLCreateContext(alloc, protocolSide, connectionType);
     
-    // Set the kSSLSessionOptionBreakOnServerAuth option in order to disable cert validation
+    // Immediatly set the kSSLSessionOptionBreakOnServerAuth option in order to disable cert validation
     original_SSLSetSessionOption(sslContext, kSSLSessionOptionBreakOnServerAuth, true);
     return sslContext;
 }
