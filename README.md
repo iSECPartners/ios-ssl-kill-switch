@@ -8,19 +8,26 @@ pinning - within iOS Apps.
 Description
 -----------
 
-Once installed on a jailbroken device, iOS SSL Kill Switch patches
-NSURLConnection and SecTrustEvaluate() to override and disable the system's
-default certificate validation as well as any kind of custom certificate
-validation (such as certificate pinning). It was succesfully tested against
-Twitter, Card.io and Square; all of them implement certificate pinning. iOS
-SSL Kill Switch was initially released at Black Hat Vegas 2012.
+Once installed on a jailbroken device, iOS SSL Kill Switch patches low-level
+SSL functions within the Secure Transport API, including _SSLSetSessionOption()_
+and _SSLHandshake()_ in order to override and disable the system's default
+certificate validation as well as any kind of custom certificate validation
+(such as certificate pinning). 
+
+It was successfully tested against the Twitter, Facebook, Square and Apple App
+Store apps; all of them implement certificate pinning. iOS SSL Kill Switch was
+initially released at Black Hat Vegas 2012.
+
+For more technical details on how it works, see
+http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-released/
 
 
 Installation
 ------------
 
 Users should first download the pre-compiled Debian package (tested on iOS 6.1):
-http://nabla-c0d3.blogspot.com/2013/06/ios-ssl-kill-switch-v04-released.html
+http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-released/
+
 
 ### Dependencies
 
@@ -50,6 +57,13 @@ Finally, kill and restart the App you want to test.
     dpkg -r com.isecpartners.nabla.sslkillswitch
 
 
+Intercepting the App Store's traffic
+------------------------------------
+
+Additional instructions are available here: 
+http://nabla-c0d3.github.io/blog/2013/08/20/intercepting-the-app-stores-traffic-on-ios/
+
+
 Build
 -----
 
@@ -63,6 +77,15 @@ You first have to create a symlink to your theos installation:
 Then, the package can be built using:
 
     make package
+
+
+Changelog
+---------
+
+* v0.5: Complete rewrite in order to add support for proxy-ing Apple's App Store application.
+* v0.4: Added hooks for SecTrustEvaluate().
+* v0.3: Bug fixes and support for iOS 6.
+* v0.2: Initial release.
 
 
 License

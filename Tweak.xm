@@ -59,20 +59,22 @@ static SSLContextRef replaced_SSLCreateContext (
    SSLProtocolSide protocolSide,
    SSLConnectionType connectionType
 ) {
-
     SSLContextRef sslContext = original_SSLCreateContext(alloc, protocolSide, connectionType);
     
-    // Immediatly set the kSSLSessionOptionBreakOnServerAuth option in order to disable cert validation
+    // Immediately set the kSSLSessionOptionBreakOnServerAuth option in order to disable cert validation
     original_SSLSetSessionOption(sslContext, kSSLSessionOptionBreakOnServerAuth, true);
     return sslContext;
 }
 
 
 // Hook SSLHandshake()
-static OSStatus (*original_SSLHandshake)(SSLContextRef context);
+static OSStatus (*original_SSLHandshake)(
+    SSLContextRef context
+);
 
-static OSStatus replaced_SSLHandshake(SSLContextRef context) {
-
+static OSStatus replaced_SSLHandshake(
+    SSLContextRef context
+) {
     OSStatus result = original_SSLHandshake(context);
 
     // Hijack the flow when breaking on server authentication
