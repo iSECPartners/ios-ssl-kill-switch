@@ -84,6 +84,7 @@ Then, the package can be built using:
 Changelog
 ---------
 
+* v0.6: Added support for iOS 7.
 * v0.5: Complete rewrite in order to add support for proxy-ing Apple's App Store application.
 * v0.4: Added hooks for SecTrustEvaluate().
 * v0.3: Bug fixes and support for iOS 6.
