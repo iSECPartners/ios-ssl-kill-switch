@@ -12,7 +12,7 @@ Once installed on a jailbroken device, iOS SSL Kill Switch patches low-level
 SSL functions within the Secure Transport API, including _SSLSetSessionOption()_
 and _SSLHandshake()_ in order to override and disable the system's default
 certificate validation as well as any kind of custom certificate validation
-(such as certificate pinning). 
+(such as certificate pinning).
 
 It was successfully tested against the Twitter, Facebook, Square and Apple App
 Store apps; all of them implement certificate pinning. iOS SSL Kill Switch was
@@ -25,9 +25,11 @@ http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-release
 Installation
 ------------
 
-Users should first download the pre-compiled Debian package (tested on iOS 6.1):
-http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-released/
+Users should first download the latest pre-compiled Debian package available in
+the release section of the project page at:
+https://github.com/iSECPartners/ios-ssl-kill-switch/releases
 
+The tool was tested on iOS7 running on an iPhone 5S.
 
 ### Dependencies
 
@@ -39,7 +41,7 @@ sure the following packages are installed:
 
 ### How to install
 
-Download and copy the Debian package to the device; install it:  
+Download and copy the Debian package to the device; install it:
 
     dpkg -i <package>.deb
 
@@ -60,7 +62,7 @@ Finally, kill and restart the App you want to test.
 Intercepting the App Store's traffic
 ------------------------------------
 
-Additional instructions are available here: 
+Additional instructions are available here:
 http://nabla-c0d3.github.io/blog/2013/08/20/intercepting-the-app-stores-traffic-on-ios/
 
 
@@ -68,7 +70,7 @@ Build
 -----
 
 Most users should just download and install the Debian package.
-The build requires the Theos suite to be installed; 
+The build requires the Theos suite to be installed;
 see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started .
 You first have to create a symlink to your theos installation:
 
