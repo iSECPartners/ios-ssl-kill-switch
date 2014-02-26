@@ -14,9 +14,9 @@ and _SSLHandshake()_ in order to override and disable the system's default
 certificate validation as well as any kind of custom certificate validation
 (such as certificate pinning).
 
-It was successfully tested against the Twitter, Facebook, Square and Apple App
-Store apps; all of them implement certificate pinning. iOS SSL Kill Switch was
-initially released at Black Hat Vegas 2012.
+It was successfully tested against various Apps implementing certificate
+pinning including the Apple App Store. iOS SSL Kill Switch was initially
+released at Black Hat Vegas 2012.
 
 For more technical details on how it works, see
 http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-released/
@@ -75,6 +75,10 @@ see http://www.iphonedevwiki.net/index.php/Theos/Getting_Started .
 You first have to create a symlink to your theos installation:
 
     ln -s /opt/theos/ theos
+
+Make sure dpkg is installed. If you have Homebrew, use:
+
+    brew install dpkg
 
 Then, the package can be built using:
 
