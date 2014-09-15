@@ -25,9 +25,9 @@ http://nabla-c0d3.github.io/blog/2013/08/20/ios-ssl-kill-switch-v0-dot-5-release
 WARNING: THIS TWEAK WILL MAKE YOUR DEVICE INSECURE
 ---------------------------------------------------
 
-Installing this tweak means that anyone on the same network as the device can
+Installing this tweak allows anyone on the same network as the device to
 easily perform man-in-the-middle attacks against *any* SSL or HTTPS
-connection. This means that is trivial to get access to emails, websites
+connection. This means that it is trivial to get access to emails, websites
 viewed in Safari and any other data downloaded by any App running on the
 device.
 
