@@ -5,7 +5,7 @@
 
 
 // Utility function to read the Tweak's preferences
-static BOOL shouldHookFromPreference(NSString *preferenceSetting) {
+static BOOL shouldHookFromPreference(NSString *bundleIdentifier) {
     NSString *preferenceFilePath = @PREFERENCEFILE;
     NSMutableDictionary* plist = [[NSMutableDictionary alloc] initWithContentsOfFile:preferenceFilePath];
     
@@ -14,13 +14,13 @@ static BOOL shouldHookFromPreference(NSString *preferenceSetting) {
         return FALSE;
     }
     else {
-        id shouldHook = [plist objectForKey:preferenceSetting];
+        id shouldHook = [plist objectForKey:[NSString stringWithFormat:@"Settings-%@", bundleIdentifier]];
         if (shouldHook) {
             [plist release];
             return [shouldHook boolValue];
         } 
         else { // Property was not set, don't hook
-            NSLog(@"SSL Kill Switch - Preference not set.");
+            NSLog(@"SSL Kill Switch - '%@' preference not set.", bundleIdentifier);
             [plist release];
             return FALSE;
         }
@@ -91,15 +91,15 @@ static OSStatus replaced_SSLHandshake(
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     // Should we enable the hook ?
-	if (shouldHookFromPreference(@"killSwitchSSLHandshake")) {
+    if (shouldHookFromPreference([[NSBundle mainBundle] bundleIdentifier])) {
         NSLog(@"SSL Kill Switch - Hook Enabled.");
         MSHookFunction((void *) SSLHandshake,(void *)  replaced_SSLHandshake, (void **) &original_SSLHandshake);
         MSHookFunction((void *) SSLSetSessionOption,(void *)  replaced_SSLSetSessionOption, (void **) &original_SSLSetSessionOption);
         MSHookFunction((void *) SSLCreateContext,(void *)  replaced_SSLCreateContext, (void **) &original_SSLCreateContext);
     }
     else {
-    	NSLog(@"SSL Kill Switch - Hook Disabled.");
-        }
+        NSLog(@"SSL Kill Switch - Hook Disabled.");
+    }
 
     [pool drain];
 }

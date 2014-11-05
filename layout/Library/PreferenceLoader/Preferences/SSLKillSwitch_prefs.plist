@@ -1,40 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-   <key>entry</key>
-   <dict>
-      <key>cell</key>
-         <string>PSLinkCell</string>
-         <key>icon</key>
-         <string>SSLKillSwitch.png</string>
-         <key>label</key>
-         <string>SSL Kill Switch</string>
-      </dict>
-      <key>items</key>
-      <array>
-         <dict>
-            <key>cell</key>
-            <string>PSGroupCell</string>
-            <key>label</key>
-            <string></string>
-            <key>footerText</key>
-            <string>SSL Kill Switch v0.6 - iSEC Partners</string>
-         </dict>
-         <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>default</key>
-            <false/>
-            <key>defaults</key>
-            <string>com.isecpartners.nabla.SSLKillSwitchSettings</string>
-            <key>key</key>
-            <string>killSwitchSSLHandshake</string>
-            <key>label</key>
-            <string>Disable Certificate Validation</string>
-         </dict>
-      </array>
-      <key>title</key>
-      <string>SSL Kill Switch</string>
-   </dict>
-</plist>
+{
+	entry = {
+		bundle = AppList;
+		cell = PSLinkCell;
+		icon = "/Library/PreferenceLoader/Preferences/SSLKillSwitch.png";
+		isController = 1;
+		label = "SSL Kill Switch";
+		ALSettingsPath = "/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist";
+		ALSettingsKeyPrefix = "Settings-";
+		ALChangeNotification = "com.rpetrich.applist.sample.notification";
+		ALAllowsSelection = 1;
+		ALSectionDescriptors = (
+			{
+				items = (
+					{
+						text = "Disable Certificate Validation";
+						image = "/Library/PreferenceLoader/Preferences/SSLKillSwitch.png";
+					},
+				);
+				"footer-title" = "SSL Kill Switch v0.6 - iSEC Partners";
+			},
+			{
+				title = "User Applications";
+				predicate = "isSystemApplication = FALSE";
+				"cell-class-name" = ALSwitchCell;
+				"icon-size" = 29;
+				"suppress-hidden-apps" = 1;
+				"footer-title" = "2012-2014 nabla-c0d3";
+			},
+		);
+	};
+}
