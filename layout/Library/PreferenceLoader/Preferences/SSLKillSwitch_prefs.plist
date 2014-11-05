@@ -17,11 +17,18 @@
 						image = "/Library/PreferenceLoader/Preferences/SSLKillSwitch.png";
 					},
 				);
-				"footer-title" = "SSL Kill Switch v0.6 - iSEC Partners";
+				"footer-title" = "SSL Kill Switch v0.61 - iSEC Partners";
 			},
 			{
 				title = "User Applications";
 				predicate = "isSystemApplication = FALSE";
+				"cell-class-name" = ALSwitchCell;
+				"icon-size" = 29;
+				"suppress-hidden-apps" = 1;
+			},
+			{
+				title = "System Applications";
+				predicate = "isSystemApplication = TRUE";
 				"cell-class-name" = ALSwitchCell;
 				"icon-size" = 29;
 				"suppress-hidden-apps" = 1;

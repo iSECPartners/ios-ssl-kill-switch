@@ -2,10 +2,10 @@
 #import "substrate.h"
 
 #define PREFERENCEFILE "/private/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist"
-
+#define PREFERENCE_KEY_NULL "Settings-NULL"
 
 // Utility function to read the Tweak's preferences
-static BOOL shouldHookFromPreference(NSString *bundleIdentifier) {
+static BOOL shouldHookFromPreference() {
     NSString *preferenceFilePath = @PREFERENCEFILE;
     NSMutableDictionary* plist = [[NSMutableDictionary alloc] initWithContentsOfFile:preferenceFilePath];
     
@@ -14,13 +14,21 @@ static BOOL shouldHookFromPreference(NSString *bundleIdentifier) {
         return FALSE;
     }
     else {
-        id shouldHook = [plist objectForKey:[NSString stringWithFormat:@"Settings-%@", bundleIdentifier]];
+        NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+        NSString *preferenceSetting;
+        if (bundleIdentifier) {
+            preferenceSetting = [NSString stringWithFormat:@"Settings-%@", bundleIdentifier];
+        } else {
+            preferenceSetting = @PREFERENCE_KEY_NULL;
+        }
+
+        id shouldHook = [plist objectForKey:preferenceSetting];
         if (shouldHook) {
             [plist release];
             return [shouldHook boolValue];
         } 
         else { // Property was not set, don't hook
-            NSLog(@"SSL Kill Switch - '%@' preference not set.", bundleIdentifier);
+            NSLog(@"SSL Kill Switch - '%@' not set.", preferenceSetting);
             [plist release];
             return FALSE;
         }
@@ -91,7 +99,7 @@ static OSStatus replaced_SSLHandshake(
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     // Should we enable the hook ?
-    if (shouldHookFromPreference([[NSBundle mainBundle] bundleIdentifier])) {
+    if (shouldHookFromPreference()) {
         NSLog(@"SSL Kill Switch - Hook Enabled.");
         MSHookFunction((void *) SSLHandshake,(void *)  replaced_SSLHandshake, (void **) &original_SSLHandshake);
         MSHookFunction((void *) SSLSetSessionOption,(void *)  replaced_SSLSetSessionOption, (void **) &original_SSLSetSessionOption);
