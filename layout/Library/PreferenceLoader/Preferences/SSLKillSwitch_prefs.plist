@@ -1,39 +1,69 @@
-{
-	entry = {
-		bundle = AppList;
-		cell = PSLinkCell;
-		icon = "/Library/PreferenceLoader/Preferences/SSLKillSwitch.png";
-		isController = 1;
-		label = "SSL Kill Switch";
-		ALSettingsPath = "/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist";
-		ALSettingsKeyPrefix = "Settings-";
-		ALChangeNotification = "com.rpetrich.applist.sample.notification";
-		ALAllowsSelection = 1;
-		ALSectionDescriptors = (
-			{
-				items = (
-					{
-						text = "Disable Certificate Validation";
-						image = "/Library/PreferenceLoader/Preferences/SSLKillSwitch.png";
-					},
-				);
-				"footer-title" = "SSL Kill Switch v0.61 - iSEC Partners";
-			},
-			{
-				title = "User Applications";
-				predicate = "isSystemApplication = FALSE";
-				"cell-class-name" = ALSwitchCell;
-				"icon-size" = 29;
-				"suppress-hidden-apps" = 1;
-			},
-			{
-				title = "System Applications";
-				predicate = "isSystemApplication = TRUE";
-				"cell-class-name" = ALSwitchCell;
-				"icon-size" = 29;
-				"suppress-hidden-apps" = 1;
-				"footer-title" = "2012-2014 nabla-c0d3";
-			},
-		);
-	};
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>entry</key>
+	<dict>
+		<key>bundle</key>
+		<string>AppList</string>
+		<key>cell</key>
+		<string>PSLinkCell</string>
+		<key>icon</key>
+		<string>/Library/PreferenceLoader/Preferences/SSLKillSwitch.png</string>
+		<key>isController</key>
+		<string>1</string>
+		<key>label</key>
+		<string>SSL Kill Switch</string>
+		<key>ALSettingsPath</key>
+		<string>/var/mobile/Library/Preferences/com.isecpartners.nabla.SSLKillSwitchSettings.plist</string>
+		<key>ALSettingsKeyPrefix</key>
+		<string>Settings-</string>
+		<key>ALChangeNotification</key>
+		<string>com.rpetrich.applist.sample.notification</string>
+		<key>ALAllowsSelection</key>
+		<string>1</string>
+		<key>ALSectionDescriptors</key>
+		<array>
+			<dict>
+				<key>items</key>
+				<array>
+					<dict>
+						<key>text</key>
+						<string>Disable Certificate Validation</string>
+						<key>image</key>
+						<string>/Library/PreferenceLoader/Preferences/SSLKillSwitch.png</string>
+					</dict>
+				</array>
+				<key>footer-title</key>
+				<string>SSL Kill Switch v0.61 - iSEC Partners</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>User Applications</string>
+				<key>predicate</key>
+				<string>isSystemApplication = FALSE</string>
+				<key>cell-class-name</key>
+				<string>ALSwitchCell</string>
+				<key>icon-size</key>
+				<string>29</string>
+				<key>suppress-hidden-apps</key>
+				<string>1</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>System Applications</string>
+				<key>predicate</key>
+				<string>isSystemApplication = TRUE</string>
+				<key>cell-class-name</key>
+				<string>ALSwitchCell</string>
+				<key>icon-size</key>
+				<string>29</string>
+				<key>suppress-hidden-apps</key>
+				<string>1</string>
+				<key>footer-title</key>
+				<string>© 2012-2014 nabla-c0d3</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
