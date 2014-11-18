@@ -20,3 +20,9 @@ SSLKillSwitchSettings_PRIVATE_FRAMEWORKS = Preferences
 SSLKillSwitchSettings_LIBRARIES = applist
 
 include $(THEOS_MAKE_PATH)/application.mk
+
+after-install::
+	install.exec "killall -9 SpringBoard"
+
+clean::
+	rm -f *.deb
