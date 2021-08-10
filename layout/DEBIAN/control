@@ -1,9 +1,0 @@
-Package: com.isecpartners.nabla.sslkillswitch
-Name: iOS SSL Kill Switch
-Depends: mobilesubstrate, preferenceloader
-Version: 0.6
-Architecture: iphoneos-arm
-Description: Blackbox tool to disable SSL certificate validation - including certificate pinning - within iOS Apps.
-Maintainer: Alban Diquet <alban@isecpartners.com>
-Author: Alban Diquet <alban@isecpartners.com>
-Section: Tweaks
