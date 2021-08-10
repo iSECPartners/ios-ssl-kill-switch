@@ -1,9 +1,0 @@
-Package: com.isecpartners.nabla.sslkillswitchtestapp
-Name: iOS SSL Kill Switch Test Application
-Depends: 
-Version: 0.0.1
-Architecture: iphoneos-arm
-Description: iOS SSL Kill Switch Test Application
-Maintainer: Alban Diquet
-Author: Alban Diquet
-Section: Utilities

@@ -1,3 +1,0 @@
-@interface RootViewController: UIViewController {
-}
-@end
