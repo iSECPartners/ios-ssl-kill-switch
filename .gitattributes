@@ -1,9 +1,0 @@
-# These files are text and should be normalized (convert crlf => lf)
-*.h       text  
-*.m       text  
-*.xm      text
-*.txt     text
-*.md      text
-Makefile  text
-control   text
-*.plist   text
